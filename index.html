@@ -1,298 +1,168 @@
+
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#171124">
-<title>THE LITTLE PLACE I KEPT FOR YOU</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Tiny Internet Side Quest</title>
 <style>
-:root {
-  --site-primary: #59445c;
-  --site-secondary: #98758a;
-  --site-background: #211b28;
-  --site-on-primary: #f5eafa;
-  --site-on-secondary: #fff0f5;
-  --site-on-background: #e9ddec;
-  --site-font-body: "Trebuchet MS", Verdana, sans-serif;
-  --site-font-heading: Georgia, "Times New Roman", serif;
-  --site-heading-scale: 1;
-  --site-spacing-scale: 1;
-  --site-radius-scale: 1;
-  --site-decoration-opacity: 1;
-  --ink: #f2e6e4;
-  --muted: #c9b8c2;
-  --line: #8a7185;
-  --panel: #302735;
-  --panel2: #3a2d3b;
-  --pink: #e5a9bd;
-  --gold: #e7cba4;
-  --mint: #b4c9bb;
-  --shadow: 0 12px 30px #08050d88;
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;
+ background:
+ radial-gradient(ellipse at 15% 10%,#ffd6e8,transparent 35%),
+ radial-gradient(ellipse at 90% 20%,#b7d7ff,transparent 34%),
+ linear-gradient(145deg,#f6dff2,#d9e7ff 48%,#d7f4e8);
+ color:#37304b;font-family:"Trebuchet MS",sans-serif;
 }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--site-background); color: var(--site-on-background); font-family: var(--site-font-body); }
-#site-root { min-height: 100vh; width: 100%; border-radius: 0; overflow: hidden; color: var(--ink); background-color: var(--site-background); background-image: radial-gradient(ellipse at 12% 8%, #b77f9b33, transparent 36%), radial-gradient(ellipse at 90% 42%, #8d758f33, transparent 34%), linear-gradient(180deg, #302638 0%, #211b28 52%, #30242d 100%); position: relative; }
-#site-root::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:var(--site-decoration-opacity); background-image: radial-gradient(#f4d9ef 0.7px, transparent .7px); background-size: 23px 23px; mask-image:linear-gradient(to bottom, #000 0%, transparent 75%); }
-a { color: #e7b4ce; text-decoration: underline dotted; text-underline-offset: 3px; }
-a:hover { color: #fff0d0; }
-button, input, textarea { font: inherit; }
-button { cursor:pointer; }
-.wrap { width:min(100% - 24px, 760px); margin:0 auto; position:relative; z-index:1; }
-.topline { padding:10px 0 6px; display:flex; justify-content:space-between; gap:8px; color:#bcaac3; font:10px/1.5 "Courier New", monospace; letter-spacing:.08em; text-transform:uppercase; }
-.soundbar { display:flex; justify-content:center; padding:5px 0 10px; position:relative; z-index:2; }
-.sound-toggle { border:1px solid #c995b5; color:#f7e4ef; background:#38263f; padding:9px 15px; font:11px "Courier New",monospace; letter-spacing:.08em; box-shadow:0 0 16px #d28bbd22; }
-.sound-toggle[aria-pressed="true"] { background:#69435f; border-color:#f0c5d8; }
-.blink { animation:blink 1.4s steps(2,start) infinite; color:#f3b7cf; }
-@keyframes blink { to { visibility:hidden; } }
-.masthead { background:linear-gradient(120deg,var(--site-primary),#21162b 60%,var(--site-secondary)); border:1px solid #98758d; box-shadow:var(--shadow); padding:18px 15px 14px; text-align:center; position:relative; overflow:hidden; }
-.masthead:before,.masthead:after { content:"✦  ·  ✧  ·  ✦"; position:absolute; top:12px; color:#d5b7cf66; font-size:13px; letter-spacing:8px; }
-.masthead:before { left:-8px; transform:rotate(-12deg); }.masthead:after { right:-8px; transform:rotate(12deg); }
-.kicker { font:10px "Courier New",monospace; letter-spacing:.3em; color:#d5b7d5; }
-h1 { font:normal calc(34px * var(--site-heading-scale))/1.02 var(--site-font-heading); letter-spacing:.06em; margin:10px 0 5px; color:#fff0f4; text-shadow:0 0 18px #d77ca655; }
-.subtitle { color:#d6b7ce; font:italic 13px/1.5 Georgia,serif; }
-.stamp { display:inline-block; margin-top:12px; padding:4px 10px; border:1px dashed #c88ca8; color:#f0c9d8; font:10px "Courier New",monospace; transform:rotate(-2deg); }
-.nav { display:flex; justify-content:center; flex-wrap:wrap; background:#120f19; border:1px solid var(--line); border-top:0; }
-.nav a { padding:10px 12px; font:10px "Courier New",monospace; text-transform:uppercase; letter-spacing:.1em; text-decoration:none; color:#d8c3d9; border-right:1px dotted #66506d; }
-.nav a:last-child { border:0; }.nav a:hover { background:var(--site-secondary); color:white; }
-.ticker { margin:12px 0; border:1px dashed #8e718c; background:#21182b; padding:7px 9px; overflow:hidden; font:10px "Courier New",monospace; color:#dcb9cb; white-space:nowrap; }
-.ticker span { display:inline-block; padding-left:100%; animation:marquee 22s linear infinite; }
-@keyframes marquee { to { transform:translateX(-100%); } }
-.grid { display:grid; grid-template-columns:1fr; gap:12px; }
-.panel { background:linear-gradient(145deg,#2a2035ee,#1d1728f2); border:1px solid var(--line); box-shadow:var(--shadow); border-radius:calc(3px * var(--site-radius-scale)); overflow:hidden; }
-.panel-head { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; background:var(--site-secondary); color:var(--site-on-secondary); border-bottom:1px solid #a87c9c; font:11px "Courier New",monospace; letter-spacing:.08em; text-transform:uppercase; }
-.panel-body { padding:13px; }
-.small { color:var(--muted); font-size:11px; line-height:1.65; }
-.hero-scene { min-height:330px; position:relative; overflow:hidden; background:linear-gradient(180deg,#171328 0%,#32213e 57%,#201727 100%); }
-.hero-scene:after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#110e1c55,transparent 40%,#100c1c77),linear-gradient(0deg,#15101d 0%,transparent 42%); pointer-events:none; }
-.moon { position:absolute; width:62px; height:62px; border-radius:50%; background:#e6c9cf; right:12%; top:26px; box-shadow:0 0 35px #e9b6d966,0 0 80px #c77c9b33; }
-.ferris { position:absolute; width:215px; height:215px; border:3px solid #d6a8c4; border-radius:50%; left:50%; top:58px; transform:translateX(-50%); box-shadow:0 0 12px #d28bbd55; animation:slowspin 48s linear infinite; }
-.ferris:before,.ferris:after { content:""; position:absolute; background:#c994b7; left:50%; top:50%; transform:translate(-50%,-50%); }
-.ferris:before { width:2px;height:100%; }.ferris:after { height:2px;width:100%; }
-.spoke { position:absolute; left:50%; top:50%; width:2px; height:50%; transform-origin:top; background:#b77da8; }
-.spoke:nth-child(1){transform:rotate(45deg)}.spoke:nth-child(2){transform:rotate(90deg)}.spoke:nth-child(3){transform:rotate(135deg)}.spoke:nth-child(4){transform:rotate(180deg)}.spoke:nth-child(5){transform:rotate(225deg)}.spoke:nth-child(6){transform:rotate(270deg)}.spoke:nth-child(7){transform:rotate(315deg)}
-.hub { position:absolute; width:13px;height:13px;border-radius:50%;background:#f2d4df;left:50%;top:50%;transform:translate(-50%,-50%);box-shadow:0 0 14px #fff; }
-@keyframes slowspin { to { transform:translateX(-50%) rotate(360deg); } }
-.cabin { position:absolute; width:13px;height:17px;border:1px solid #f0c9d7;background:#5e3b5f;border-radius:3px 3px 5px 5px; left:50%;top:-8px; transform:translateX(-50%); }
-.ferris .cabin:nth-of-type(2){top:50%;left:auto;right:-8px;transform:translateY(-50%)}
-.ferris .cabin:nth-of-type(3){top:auto;bottom:-8px;left:50%;transform:translateX(-50%)}
-.ferris .cabin:nth-of-type(4){left:-8px;top:50%;transform:translateY(-50%)}
-.tent { position:absolute; bottom:34px; width:120px;height:65px; background:repeating-linear-gradient(90deg,#63354f 0 17px,#b4778c 17px 34px); clip-path:polygon(50% 0,100% 100%,0 100%); opacity:.8; }
-.tent:after {content:"";position:absolute;bottom:0;left:48%;height:35px;width:4px;background:#f4d8dd;}
-.tent.one{left:3%}.tent.two{right:2%;transform:scale(.8);filter:hue-rotate(35deg)}
-.scene-caption { position:absolute; z-index:2; left:15px; right:15px; bottom:12px; text-align:center; font:italic 13px Georgia,serif; color:#f1d8e5; text-shadow:0 2px 8px #000; }
-.scene-label { position:absolute;z-index:2;top:12px;left:12px;padding:5px 7px;border:1px solid #d5a4c3;background:#1b1328aa;color:#f5dce8;font:9px "Courier New",monospace;letter-spacing:.1em; }
-.two-col { display:grid; grid-template-columns:1fr; gap:12px; }
-.notice { border-left:3px solid var(--gold); background:#31253a; padding:10px 11px; font:12px/1.65 Georgia,serif; color:#ead9e7; }
-.btnrow { display:flex; flex-wrap:wrap; gap:7px; margin-top:11px; }
-.retro-btn { border:1px solid #a77b9d; color:#f2dbe9; background:linear-gradient(#503653,#2c2039); padding:8px 10px; font:10px "Courier New",monospace; letter-spacing:.05em; box-shadow:inset 0 1px #ffffff22; }
-.retro-btn:active { transform:translateY(1px); }.retro-btn:hover { background:#69435f; }
-.ride-list { display:grid; gap:7px; }
-.ride { width:100%; text-align:left; border:1px solid #69536f; background:#211a2c; color:#e9d8e8; padding:10px; display:flex; align-items:center; gap:10px; }
-.ride strong { display:block; font:12px Georgia,serif; }.ride small { color:#b9a6bc; font:10px "Courier New",monospace; }
-.ride .glyph { width:34px;height:34px;display:grid;place-items:center;border:1px dashed #b07e9c;color:#edc4d6;font-size:18px;flex:none; }
-.ride.active { background:#49304d; border-color:#d09ab5; box-shadow:inset 0 0 0 1px #d09ab533; }
-.ticket { background:linear-gradient(90deg,#e4c5c7,#c99cae); color:#2b1c31; padding:12px; border:1px dashed #5c3a58; position:relative; text-align:center; }
-.ticket:before,.ticket:after {content:"";position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:#21182d;transform:translateY(-50%)}.ticket:before{left:-8px}.ticket:after{right:-8px}
-.ticket b { display:block; font:20px Georgia,serif; letter-spacing:.12em; }.ticket span { font:9px "Courier New",monospace; letter-spacing:.15em; }
-.guestbook-entry { padding:9px 0; border-bottom:1px dotted #6d5875; font:12px/1.55 Georgia,serif; }.guestbook-entry:last-child{border:0}.guestbook-entry small{display:block;color:#a88da9;font:9px "Courier New",monospace;margin-bottom:4px;}
-input,textarea { width:100%; background:#171321; border:1px solid #735c78; color:#f2e4ee; padding:9px; outline:none; font:11px "Courier New",monospace; margin:5px 0; }
-textarea { min-height:70px; resize:vertical; }
-input:focus,textarea:focus { border-color:#d7a5bf; box-shadow:0 0 0 2px #d7a5bf22; }
-.secret { display:none; padding:12px; margin-top:10px; border:1px dashed #b78ca7; background:#171321; color:#e6c9d8; font:italic 13px/1.7 Georgia,serif; }
-.secret.show { display:block; animation:fade .8s ease; }
-@keyframes fade {from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-.footer { text-align:center; padding:22px 8px 32px; color:#9f8ba7; font:9px/1.8 "Courier New",monospace; letter-spacing:.12em; }
-.pixel { display:inline-block; padding:2px 5px; border:1px solid #8c6a89; background:#271c31; color:#e7bdd2; }
-.video-card { background:#15111d; border:1px solid #765b78; padding:8px; }
-.video-poster { min-height:150px; display:grid; place-items:center; text-align:center; position:relative; overflow:hidden; background:radial-gradient(circle at 50% 45%,#d08aaa55,transparent 23%),linear-gradient(135deg,#21172e,#5a3455 50%,#171322); }
-.video-poster:before {content:"";position:absolute;inset:-40%;background:repeating-linear-gradient(115deg,transparent 0 14px,#ffffff0a 15px 16px);animation:film 15s linear infinite;}
-@keyframes film {to{transform:translateX(35px)}}
-.play { position:relative; z-index:1; width:48px;height:48px;border-radius:50%;border:1px solid #f2d8e6;background:#2b1c35bb;color:#fff;font-size:18px; }
-.video-caption { font:10px/1.6 "Courier New",monospace; color:#bca7c1; padding:8px 2px 0; }
-.cat-garden { min-height:330px; display:grid; place-items:center; text-align:center; position:relative; overflow:hidden; background:radial-gradient(ellipse at 50% 100%,#c28da655,transparent 52%),linear-gradient(180deg,#a9a1b6 0%,#6d617e 54%,#3c3046 100%); }
-.cat-garden:before {content:"✦     ·       ✧       ·      ✦";position:absolute;top:24px;left:0;right:0;color:#fff1d5;font-size:17px;letter-spacing:12px;opacity:.8}
-.cat-portrait {font-size:clamp(100px,28vw,165px);line-height:1.2;filter:drop-shadow(0 15px 8px #21172977);animation:catbob 3s ease-in-out infinite;}
-@keyframes catbob {50%{transform:translateY(-9px) rotate(-2deg)}}
-.garden-caption {position:absolute;bottom:16px;left:12px;right:12px;color:#fff1e9;font:italic 14px/1.5 Georgia,serif;text-shadow:0 2px 8px #201329}
-.paw {color:#f1c4d0;font-size:18px;letter-spacing:9px}
-.letter {background:#f1dfd7;color:#493747;border:1px dashed #a77f91;padding:17px;font:italic 15px/1.8 Georgia,serif;box-shadow:inset 0 0 25px #c89e9b55}
-.pawprint {font-size:25px;color:#e7b9c9;letter-spacing:7px}
-@media(min-width:620px){ .wrap{width:min(100% - 40px,760px)} .grid{grid-template-columns:1.25fr .75fr}.two-col{grid-template-columns:1fr 1fr}.hero-scene{min-height:390px}.ferris{width:250px;height:250px;top:66px} h1{font-size:calc(46px * var(--site-heading-scale))} }
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+main{min-height:100vh;display:grid;place-items:center;padding:24px 14px}
+.card{
+ width:min(100%,650px);background:#ffffffbd;
+ border:1px solid white;border-radius:28px;
+ padding:clamp(20px,5vw,38px);
+ box-shadow:0 22px 70px #6c679333;
+ backdrop-filter:blur(12px);text-align:center;
+}
+.eyebrow{font:11px "Courier New",monospace;letter-spacing:.16em;color:#756b91;text-transform:uppercase}
+h1{font:clamp(30px,8vw,54px)/1.04 Georgia,serif;color:#51466f;letter-spacing:-.04em;margin:14px 0}
+p{font:14px/1.65 "Trebuchet MS",sans-serif;color:#625a78}
+.progress{display:flex;justify-content:center;gap:7px;margin:0 0 24px}
+.dot{width:8px;height:8px;border-radius:20px;background:#c9bfdc}
+.dot.active{width:27px;background:#8c78b8}
+.step{display:none;animation:appear .35s ease}
+.step.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.art{
+ min-height:190px;border-radius:22px;margin:18px 0;
+ display:grid;place-items:center;position:relative;overflow:hidden;
+ background:linear-gradient(135deg,#f9cfe4,#c8d9ff 55%,#c8f0df)
+}
+.big{font-size:clamp(76px,19vw,120px);animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-9px) rotate(4deg)}}
+.art small{position:absolute;bottom:12px;font:11px "Courier New",monospace;color:#51466f}
+.meme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}
+.meme{
+ min-height:130px;border-radius:18px;padding:12px;
+ display:grid;place-items:center;
+ background:linear-gradient(145deg,#fff1c9,#ffd7e7);
+ border:1px solid white;box-shadow:0 8px 20px #786b8b18
+}
+.meme:nth-child(2){background:linear-gradient(145deg,#d8eaff,#e8d9ff)}
+.meme:nth-child(3){background:linear-gradient(145deg,#d8f4e8,#fff0c9)}
+.meme:nth-child(4){background:linear-gradient(145deg,#f4dafa,#d9eaff)}
+.meme b{font-size:42px}
+.meme span{font:10px "Courier New",monospace;color:#51466f}
+.actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:22px}
+button{
+ border:0;border-radius:999px;padding:12px 20px;
+ background:#7664a6;color:white;
+ font:12px "Courier New",monospace;
+ box-shadow:0 6px 16px #7664a633;cursor:pointer
+}
+button.secondary{background:#ffffffa8;color:#625779;border:1px solid #cfc4e4;box-shadow:none}
+.tiny{font:10px "Courier New",monospace;color:#897f9e;margin-top:18px}
 </style>
 </head>
 <body>
-<div id="site-root">
-  <div class="wrap">
-    <div class="topline"><span>◉ connection: unstable</span><span>visitors: <b id="visitors">00417</b></span><span class="blink">● OPEN TONIGHT</span></div>
-    <div class="soundbar"><button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false">♫ TURN THE LITTLE MUSIC ON</button></div>
-    <header class="masthead">
-      <div class="kicker">A VERY SMALL PLACE, MADE WITH A LOT OF FEELING</div>
-      <h1>THE LITTLE PLACE I KEPT FOR YOU</h1>
-      <div class="subtitle">a pocket-sized world of cats, quiet things, and words I couldn't quite send</div>
-      <div class="stamp">MADE ESPECIALLY FOR ONE PERSON ♡</div>
-    </header>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#entrance">A little hello</a><a href="#rides">Meet the cats</a><a href="#arcade">Tiny things</a><a href="#guestbook">A note</a><a href="#exit">The end</a>
-    </nav>
-    <div class="ticker"><span>♡ A CAT HAS BEEN WAITING BY THE WINDOW ♡ YOU ARE NOT REQUIRED TO SAY ANYTHING CLEVER ♡ THERE IS ROOM FOR YOU HERE ♡ PLEASE ACCEPT THIS VERY SMALL UNIVERSE ♡</span></div>
-
-    <main id="entrance" class="grid">
-      <section class="panel">
-        <div class="panel-head"><span>01 / A little hello</span><span>FOR YOUR EYES ONLY</span></div>
-        <div class="cat-garden" role="img" aria-label="A sleepy little cat sitting beneath a moon">
-          <div><div class="paw">ฅ^•ﻌ•^ฅ</div><div class="cat-portrait">🐈</div><div style="color:#fff1e9;font:11px 'Courier New';letter-spacing:.18em">THE NIGHT-SHIFT GREETER</div></div>
-          <div class="garden-caption">“I saved you the softest place in the whole world.”</div>
-        </div>
-        <div class="panel-body">
-          <div class="notice">Hello, you.<br>I made you a tiny place to visit whenever the day feels too loud. There are cats here, because cats make almost everything gentler. And there are a few words I couldn't fit into an ordinary message.</div>
-          <p class="small">It is silly in the sweetest ways. It is sincere in the ways that matter. I hope it feels a little like being remembered.</p>
-          <div class="btnrow"><button class="retro-btn" onclick="document.querySelector('#rides').scrollIntoView({behavior:'smooth'})">MEET YOUR CATS ↓</button><button class="retro-btn" id="ticketBtn">OPEN YOUR LITTLE LETTER</button></div>
-          <div id="ticketReveal" class="secret"><div class="letter">I don't always know how to make the important things sound simple. So I made a little world instead. If you ever wonder whether you matter to someone, let this be one small answer: you do. More than these words can hold. ♡</div><p style="text-align:center;margin:9px 0 0">— a person who wanted you to have something lovely</p></div>
-        </div>
-      </section>
-      <aside class="panel">
-        <div class="panel-head"><span>Cat department</span><span>● 3 tiny updates</span></div>
-        <div class="panel-body">
-          <p class="small">IMPORTANT REPORTS FROM THE CATS</p>
-          <div class="guestbook-entry"><small>MR. BUTTON — 08:02 AM</small>Has fallen asleep on a letter. Refuses to move.</div>
-          <div class="guestbook-entry"><small>MISS PEACH — 02:19 PM</small>Insists that you deserve a little treat.</div>
-          <div class="guestbook-entry"><small>THE SMALL GREY ONE — 11:58 PM</small>Still keeping the window warm for you.</div>
-          <p class="small" style="margin-top:12px">CURRENT STATUS: <span class="pixel">soft-hearted.cat</span><br>WEATHER: warm tea and old memories<br>EMERGENCY: needs more naps</p>
-        </div>
-      </aside>
-    </main>
-
-    <section id="rides" class="panel" style="margin-top:12px">
-      <div class="panel-head"><span>02 / Meet the little residents</span><span>THEY ARE FRIENDLY</span></div>
-      <div class="panel-body two-col">
-        <div class="ride-list" role="group" aria-label="Choose an attraction">
-          <button class="ride active" data-ride="wheel"><span class="glyph">🐈</span><span><strong>Button, the sleepy one</strong><small>PROFESSIONAL NAPPER</small></span></button>
-          <button class="ride" data-ride="carousel"><span class="glyph">🐈‍⬛</span><span><strong>Velvet, the night thinker</strong><small>COLLECTS QUIET MOMENTS</small></span></button>
-          <button class="ride" data-ride="mirror"><span class="glyph">🐈</span><span><strong>Peach, the little sun</strong><small>GIVES UNASKED COMFORT</small></span></button>
-          <button class="ride" data-ride="train"><span class="glyph">🐾</span><span><strong>The tiny guardian</strong><small>ALWAYS SAVES YOU A SEAT</small></span></button>
-        </div>
-        <div>
-          <div class="ticket"><span>NOW MEETING</span><b id="rideName">BUTTON</b><span id="rideSub">SMALL PAWS, BIG FEELINGS</span></div>
-          <p id="rideText" class="small" style="margin-top:12px">Button is an expert at staying beside someone without asking them to explain. He thinks quiet company is a kind of love.</p>
-          <div class="btnrow"><button class="retro-btn" id="rideBtn">GIVE THIS CAT A PAT</button></div>
-          <div id="rideMessage" class="secret"></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="arcade" class="two-col" style="margin-top:12px">
-      <div class="panel">
-        <div class="panel-head"><span>03 / Tiny things to keep</span><span>TAKE YOUR TIME</span></div>
-        <div class="panel-body">
-          <div class="video-card">
-            <div class="video-poster"><div><div style="font-size:70px">🐈‍⬛</div><div style="font:10px 'Courier New';letter-spacing:.2em;margin-top:9px">A CAT WATCHING THE MOON</div></div></div>
-            <div class="video-caption">A SMALL REMINDER // YOU DON'T HAVE TO BE BRAVE EVERY MINUTE<br>THE CAT SAYS: REST A WHILE.</div>
-          </div>
-          <p id="filmNote" class="small">Some nights are easier when there is a small creature nearby, even if it is only made of pixels.</p>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><span>04 / Pick a tiny gift</span><span>ALL YOURS</span></div>
-        <div class="panel-body">
-          <p class="small">Choose a little parcel. Each one contains a sentence I hope you keep.</p>
-          <div class="btnrow"><button class="retro-btn fortune" data-fortune="You do not have to earn tenderness. You deserve it on ordinary days, too.">♡ A HEART</button><button class="retro-btn fortune" data-fortune="Even the smallest light changes a dark room. You have done that for people.">✧ A STAR</button><button class="retro-btn fortune" data-fortune="Some feelings stay, not to hurt us forever, but because they mattered.">☾ A MOON</button></div>
-          <div id="fortune" class="secret show">YOUR FORTUNE WILL APPEAR HERE.</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="guestbook" class="panel" style="margin-top:12px">
-      <div class="panel-head"><span>05 / A little note from the heart</span><span>NO PERFECT WORDS NEEDED</span></div>
-      <div class="panel-body two-col">
-        <div>
-          <div class="letter">There are things I wish I could make lighter for you. I can't promise that every day will be kind, or that distance and time will always behave. But I can tell you this: knowing you has left a mark on my world, and I am grateful for the small, ordinary ways you exist in it.</div>
-          <p class="small">A note can be small and still carry a whole sky.</p>
-        </div>
-        <form id="noteForm">
-          <label class="small" for="alias">GIVE YOUR NOTE A NAME</label>
-          <input id="alias" maxlength="24" placeholder="a tiny nickname" required>
-          <label class="small" for="note">WRITE BACK TO THE LITTLE CATS</label>
-          <textarea id="note" maxlength="180" placeholder="A thought, a wish, or just hello..."></textarea>
-          <button class="retro-btn" type="submit">LEAVE A PAWPRINT</button>
-          <div id="noteStatus" class="small" aria-live="polite"></div>
-        </form>
-      </div>
-    </section>
-
-    <section id="exit" class="panel" style="margin-top:12px">
-      <div class="panel-head"><span>06 / The exit gate</span><span>YOU CAN STAY A LITTLE</span></div>
-      <div class="panel-body" style="text-align:center">
-        <div style="font:clamp(24px,7vw,42px) Georgia,serif;color:#f1d7e4;line-height:1.2">If this little world could speak,<br>it would say: I'm glad you're here.</div>
-        <p class="small" style="max-width:430px;margin:12px auto">And if one day you forget how loved you are, come back and let the cats remind you. No explanation required.</p>
-        <button class="retro-btn" id="lastDoor">ONE LAST LITTLE SECRET</button>
-        <div id="lastSecret" class="secret">The deepest part isn't the sadness. It's that, even with all the things words cannot fix, I still wanted to make something gentle for you. Keep it. It's yours. ♡</div>
-      </div>
-    </section>
-    <footer class="footer"><span class="pawprint">🐾 ♡ 🐾</span><br>MADE WITH CARE, FOR YOU<br><span class="pixel">PLEASE TAKE A LITTLE SOFTNESS WITH YOU</span></footer>
+<main>
+ <div class="card">
+  <div class="eyebrow">✦ a tiny internet side quest ✦</div>
+  <div class="progress">
+   <i class="dot active"></i><i class="dot"></i>
+   <i class="dot"></i><i class="dot"></i>
   </div>
-</div>
+
+  <section class="step active">
+   <div class="eyebrow">01 / connection established</div>
+   <h1>Welcome to the weird little dream.</h1>
+   <div class="art">
+    <span class="big">🛸</span>
+    <small>PLEASE KEEP YOUR HANDS INSIDE THE UNIVERSE</small>
+   </div>
+   <p>A short trip. No deep speeches. Mildly questionable creatures.</p>
+   <div class="actions"><button class="next">ENTER THE PORTAL →</button></div>
+  </section>
+
+  <section class="step">
+   <div class="eyebrow">02 / local wildlife</div>
+   <h1>Four images. Zero context.</h1>
+   <div class="meme-grid">
+    <div class="meme"><b>🐸✨</b><span>THE CHOSEN FROG</span></div>
+    <div class="meme"><b>🍜(¬_¬)</b><span>ANIME PROTAGONIST AT 2AM</span></div>
+    <div class="meme"><b>🦆💼</b><span>CEO OF QUACKING</span></div>
+    <div class="meme"><b>👁️👄👁️</b><span>YOU OPENED THE WRONG TAB</span></div>
+   </div>
+   <p>One of these creatures knows your search history. It refuses to elaborate.</p>
+   <div class="actions">
+    <button class="secondary back">← BACK</button>
+    <button class="next">CONTINUE →</button>
+   </div>
+  </section>
+
+  <section class="step">
+   <div class="eyebrow">03 / character selection</div>
+   <h1>Choose your temporary anime role.</h1>
+   <div class="art">
+    <span class="big" id="character">🧙‍♀️</span>
+    <small id="character-caption">MYSTERIOUS SIDE CHARACTER</small>
+   </div>
+   <div class="actions">
+    <button class="secondary choice" data-face="🧌" data-caption="FINAL BOSS OF THE GROUP CHAT">THE CHAOS ONE</button>
+    <button class="secondary choice" data-face="🧙‍♀️" data-caption="MYSTERIOUS SIDE CHARACTER">THE QUIET ONE</button>
+    <button class="secondary choice" data-face="🐈‍⬛" data-caption="CAT WITH UNREASONABLE LORE">THE CAT</button>
+   </div>
+   <div class="actions">
+    <button class="secondary back">← BACK</button>
+    <button class="next">NEXT →</button>
+   </div>
+  </section>
+
+  <section class="step">
+   <div class="eyebrow">04 / mission complete</div>
+   <h1>That was the entire plot.</h1>
+   <div class="art">
+    <span class="big">🪩🦝</span>
+    <small>THE RACCOON HAS LEFT THE CHAT</small>
+   </div>
+   <p>Thanks for visiting this tiny corner of the internet. Please collect your imaginary diploma on the way out.</p>
+   <div class="actions">
+    <button class="secondary back">← ONE MORE TIME</button>
+    <button id="restart">RESTART THE NONSENSE ↻</button>
+   </div>
+   <div class="tiny">NO LORE EXPLANATION WILL BE PROVIDED.</div>
+  </section>
+ </div>
+</main>
+
 <script>
-const $ = (s) => document.querySelector(s);
-const visitor = 417 + Math.floor(Math.random()*83);
-$('#visitors').textContent = String(visitor).padStart(5,'0');
-let audioContext = null;
-let musicTimer = null;
-let musicStep = 0;
-const soundButton = $('#soundToggle');
-function playNote(frequency, duration = 0.7, volume = 0.035, wave = 'sine') {
-  if (!audioContext) return;
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-  oscillator.type = wave;
-  oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-  gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-  gain.gain.exponentialRampToValueAtTime(volume, audioContext.currentTime + 0.04);
-  gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + duration);
-  oscillator.connect(gain);
-  gain.connect(audioContext.destination);
-  oscillator.start();
-  oscillator.stop(audioContext.currentTime + duration + 0.03);
-}
-const melody = [523.25,659.25,783.99,659.25,587.33,698.46,880,698.46,523.25,659.25,783.99,1046.5,880,783.99,659.25,587.33];
-function musicTick() {
-  playNote(melody[musicStep % melody.length], 1.05, 0.018);
-  if (musicStep % 4 === 0) playNote(melody[musicStep % melody.length] / 2, 1.35, 0.012, 'triangle');
-  musicStep++;
-}
-async function toggleMusic() {
-  const AudioEngine = window.AudioContext || window.webkitAudioContext;
-  if (!AudioEngine) { soundButton.textContent = 'SOUND IS NOT SUPPORTED HERE'; return; }
-  if (!audioContext) audioContext = new AudioEngine();
-  if (audioContext.state === 'suspended') await audioContext.resume();
-  if (musicTimer) {
-    clearInterval(musicTimer);
-    musicTimer = null;
-    soundButton.textContent = '♫ TURN THE LITTLE MUSIC ON';
-    soundButton.setAttribute('aria-pressed', 'false');
-  } else {
-    musicStep = 0;
-    musicTick();
-    musicTimer = setInterval(musicTick, 650);
-    soundButton.textContent = '♫ MUSIC IS PLAYING — TURN OFF';
-    soundButton.setAttribute('aria-pressed', 'true');
-  }
-}
-soundButton.addEventListener('click', toggleMusic);
-$('#ticketBtn').addEventListener('click',()=>$('#ticketReveal').classList.toggle('show'));
-const rides = {
- wheel:{name:'BUTTON',sub:'SMALL PAWS, BIG FEELINGS',text:'Button is an expert at staying beside someone without asking them to explain. He thinks quiet company is a kind of love.',msg:'Button has chosen your lap. You are not allowed to move for the next ten minutes. This is official cat law.'},
- carousel:{name:'VELVET',sub:'THE NIGHT THINKER',text:'Velvet watches the moon as if it owes her an explanation. She knows that missing someone can sit quietly beside happiness.',msg:'Velvet leaves one paw on your sleeve. She cannot mend everything, but she can stay for a while.'},
- mirror:{name:'PEACH',sub:'A POCKET-SIZED SUN',text:'Peach believes in warm windows, second breakfasts, and the radical idea that you deserve kindness even when you have done nothing to earn it.',msg:'Peach brought you a flower. It is slightly chewed. The thought was sincere.'},
- train:{name:'THE TINY GUARDIAN',sub:'SAVES YOU A SEAT',text:'Nobody knows where this little cat came from. It simply appears whenever a room feels too empty, and curls up in the nearest quiet corner.',msg:'The tiny guardian has fallen asleep beside you. For once, nothing needs to be solved.'}
-};
-document.querySelectorAll('.ride').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.ride').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const r=rides[btn.dataset.ride];$('#rideName').textContent=r.name;$('#rideSub').textContent=r.sub;$('#rideText').textContent=r.text;$('#rideMessage').classList.remove('show');$('#rideMessage').textContent=r.msg;if(audioContext)playNote(659.25,.22,.025,'triangle');}));
-$('#rideBtn').addEventListener('click',()=>{ $('#rideMessage').classList.toggle('show');if(audioContext)playNote(783.99,.3,.03); });
-document.querySelectorAll('.fortune').forEach(btn=>btn.addEventListener('click',()=>{$('#fortune').textContent=btn.dataset.fortune;$('#fortune').classList.add('show');if(audioContext)playNote(880,.35,.025)}));
-$('#filmNote').textContent='The cat blinked at you. That is its entire review of the universe.';
-$('#noteForm').addEventListener('submit',e=>{e.preventDefault();const name=$('#alias').value.trim();const note=$('#note').value.trim();if(!name||!note){$('#noteStatus').textContent='Please leave both an alias and a little note.';return;}const entry=document.createElement('div');entry.className='guestbook-entry';const meta=document.createElement('small');meta.textContent=name+' · JUST NOW';const body=document.createElement('span');body.textContent=note;entry.append(meta,body);$('#guestbook .two-col > div').prepend(entry);$('#noteStatus').textContent='Your note is pinned here for this visit.';$('#noteForm').reset();});
-$('#lastDoor').addEventListener('click',()=>$('#lastSecret').classList.toggle('show'));
+(() => {
+ const steps=[...document.querySelectorAll(".step")];
+ const dots=[...document.querySelectorAll(".dot")];
+ let current=0;
+
+ function show(index){
+  current=(index+steps.length)%steps.length;
+  steps.forEach((step,i)=>step.classList.toggle("active",i===current));
+  dots.forEach((dot,i)=>dot.classList.toggle("active",i===current));
+ }
+
+ document.querySelectorAll(".next").forEach(button=>
+  button.addEventListener("click",()=>show(current+1))
+ );
+
+ document.querySelectorAll(".back").forEach(button=>
+  button.addEventListener("click",()=>show(current-1))
+ );
+
+ document.querySelectorAll(".choice").forEach(button=>
+  button.addEventListener("click",()=>{
+   document.querySelector("#character").textContent=button.dataset.face;
+   document.querySelector("#character-caption").textContent=button.dataset.caption;
+  })
+ );
+
+ document.querySelector("#restart").addEventListener("click",()=>show(0));
+})();
 </script>
 </body>
 </html>
