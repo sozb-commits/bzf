@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#171124">
+<title>THE LAST PARADE — a little place for lost things</title>
+<style>
+:root {
+  --site-primary: #302044;
+  --site-secondary: #5b304d;
+  --site-background: #171124;
+  --site-on-primary: #f5eafa;
+  --site-on-secondary: #fff0f5;
+  --site-on-background: #e9ddec;
+  --site-font-body: "Trebuchet MS", Verdana, sans-serif;
+  --site-font-heading: Georgia, "Times New Roman", serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  --ink: #eadfeb;
+  --muted: #b6a2bc;
+  --line: #6d5875;
+  --panel: #21192d;
+  --panel2: #291d37;
+  --pink: #c77c9b;
+  --gold: #d7b77d;
+  --mint: #92aaa3;
+  --shadow: 0 12px 30px #08050d88;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--site-background); color: var(--site-on-background); font-family: var(--site-font-body); }
+#site-root { min-height: 100vh; width: 100%; border-radius: 0; overflow: hidden; color: var(--ink); background-color: var(--site-background); background-image: radial-gradient(ellipse at 12% 8%, #633c6b55, transparent 36%), radial-gradient(ellipse at 90% 42%, #763c5c33, transparent 34%), linear-gradient(180deg, #1b1427 0%, #15111f 52%, #201626 100%); position: relative; }
+#site-root::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:var(--site-decoration-opacity); background-image: radial-gradient(#f4d9ef 0.7px, transparent .7px); background-size: 23px 23px; mask-image:linear-gradient(to bottom, #000 0%, transparent 75%); }
+a { color: #e7b4ce; text-decoration: underline dotted; text-underline-offset: 3px; }
+a:hover { color: #fff0d0; }
+button, input, textarea { font: inherit; }
+button { cursor:pointer; }
+.wrap { width:min(100% - 24px, 760px); margin:0 auto; position:relative; z-index:1; }
+.topline { padding:10px 0 6px; display:flex; justify-content:space-between; gap:8px; color:#bcaac3; font:10px/1.5 "Courier New", monospace; letter-spacing:.08em; text-transform:uppercase; }
+.blink { animation:blink 1.4s steps(2,start) infinite; color:#f3b7cf; }
+@keyframes blink { to { visibility:hidden; } }
+.masthead { background:linear-gradient(120deg,var(--site-primary),#21162b 60%,var(--site-secondary)); border:1px solid #98758d; box-shadow:var(--shadow); padding:18px 15px 14px; text-align:center; position:relative; overflow:hidden; }
+.masthead:before,.masthead:after { content:"✦  ·  ✧  ·  ✦"; position:absolute; top:12px; color:#d5b7cf66; font-size:13px; letter-spacing:8px; }
+.masthead:before { left:-8px; transform:rotate(-12deg); }.masthead:after { right:-8px; transform:rotate(12deg); }
+.kicker { font:10px "Courier New",monospace; letter-spacing:.3em; color:#d5b7d5; }
+h1 { font:normal calc(34px * var(--site-heading-scale))/1.02 var(--site-font-heading); letter-spacing:.06em; margin:10px 0 5px; color:#fff0f4; text-shadow:0 0 18px #d77ca655; }
+.subtitle { color:#d6b7ce; font:italic 13px/1.5 Georgia,serif; }
+.stamp { display:inline-block; margin-top:12px; padding:4px 10px; border:1px dashed #c88ca8; color:#f0c9d8; font:10px "Courier New",monospace; transform:rotate(-2deg); }
+.nav { display:flex; justify-content:center; flex-wrap:wrap; background:#120f19; border:1px solid var(--line); border-top:0; }
+.nav a { padding:10px 12px; font:10px "Courier New",monospace; text-transform:uppercase; letter-spacing:.1em; text-decoration:none; color:#d8c3d9; border-right:1px dotted #66506d; }
+.nav a:last-child { border:0; }.nav a:hover { background:var(--site-secondary); color:white; }
+.ticker { margin:12px 0; border:1px dashed #8e718c; background:#21182b; padding:7px 9px; overflow:hidden; font:10px "Courier New",monospace; color:#dcb9cb; white-space:nowrap; }
+.ticker span { display:inline-block; padding-left:100%; animation:marquee 22s linear infinite; }
+@keyframes marquee { to { transform:translateX(-100%); } }
+.grid { display:grid; grid-template-columns:1fr; gap:12px; }
+.panel { background:linear-gradient(145deg,#2a2035ee,#1d1728f2); border:1px solid var(--line); box-shadow:var(--shadow); border-radius:calc(3px * var(--site-radius-scale)); overflow:hidden; }
+.panel-head { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; background:var(--site-secondary); color:var(--site-on-secondary); border-bottom:1px solid #a87c9c; font:11px "Courier New",monospace; letter-spacing:.08em; text-transform:uppercase; }
+.panel-body { padding:13px; }
+.small { color:var(--muted); font-size:11px; line-height:1.65; }
+.hero-scene { min-height:330px; position:relative; overflow:hidden; background:linear-gradient(180deg,#171328 0%,#32213e 57%,#201727 100%); }
+.hero-scene:after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#110e1c55,transparent 40%,#100c1c77),linear-gradient(0deg,#15101d 0%,transparent 42%); pointer-events:none; }
+.moon { position:absolute; width:62px; height:62px; border-radius:50%; background:#e6c9cf; right:12%; top:26px; box-shadow:0 0 35px #e9b6d966,0 0 80px #c77c9b33; }
+.ferris { position:absolute; width:215px; height:215px; border:3px solid #d6a8c4; border-radius:50%; left:50%; top:58px; transform:translateX(-50%); box-shadow:0 0 12px #d28bbd55; animation:slowspin 48s linear infinite; }
+.ferris:before,.ferris:after { content:""; position:absolute; background:#c994b7; left:50%; top:50%; transform:translate(-50%,-50%); }
+.ferris:before { width:2px;height:100%; }.ferris:after { height:2px;width:100%; }
+.spoke { position:absolute; left:50%; top:50%; width:2px; height:50%; transform-origin:top; background:#b77da8; }
+.spoke:nth-child(1){transform:rotate(45deg)}.spoke:nth-child(2){transform:rotate(90deg)}.spoke:nth-child(3){transform:rotate(135deg)}.spoke:nth-child(4){transform:rotate(180deg)}.spoke:nth-child(5){transform:rotate(225deg)}.spoke:nth-child(6){transform:rotate(270deg)}.spoke:nth-child(7){transform:rotate(315deg)}
+.hub { position:absolute; width:13px;height:13px;border-radius:50%;background:#f2d4df;left:50%;top:50%;transform:translate(-50%,-50%);box-shadow:0 0 14px #fff; }
+@keyframes slowspin { to { transform:translateX(-50%) rotate(360deg); } }
+.cabin { position:absolute; width:13px;height:17px;border:1px solid #f0c9d7;background:#5e3b5f;border-radius:3px 3px 5px 5px; left:50%;top:-8px; transform:translateX(-50%); }
+.ferris .cabin:nth-of-type(2){top:50%;left:auto;right:-8px;transform:translateY(-50%)}
+.ferris .cabin:nth-of-type(3){top:auto;bottom:-8px;left:50%;transform:translateX(-50%)}
+.ferris .cabin:nth-of-type(4){left:-8px;top:50%;transform:translateY(-50%)}
+.tent { position:absolute; bottom:34px; width:120px;height:65px; background:repeating-linear-gradient(90deg,#63354f 0 17px,#b4778c 17px 34px); clip-path:polygon(50% 0,100% 100%,0 100%); opacity:.8; }
+.tent:after {content:"";position:absolute;bottom:0;left:48%;height:35px;width:4px;background:#f4d8dd;}
+.tent.one{left:3%}.tent.two{right:2%;transform:scale(.8);filter:hue-rotate(35deg)}
+.scene-caption { position:absolute; z-index:2; left:15px; right:15px; bottom:12px; text-align:center; font:italic 13px Georgia,serif; color:#f1d8e5; text-shadow:0 2px 8px #000; }
+.scene-label { position:absolute;z-index:2;top:12px;left:12px;padding:5px 7px;border:1px solid #d5a4c3;background:#1b1328aa;color:#f5dce8;font:9px "Courier New",monospace;letter-spacing:.1em; }
+.two-col { display:grid; grid-template-columns:1fr; gap:12px; }
+.notice { border-left:3px solid var(--gold); background:#31253a; padding:10px 11px; font:12px/1.65 Georgia,serif; color:#ead9e7; }
+.btnrow { display:flex; flex-wrap:wrap; gap:7px; margin-top:11px; }
+.retro-btn { border:1px solid #a77b9d; color:#f2dbe9; background:linear-gradient(#503653,#2c2039); padding:8px 10px; font:10px "Courier New",monospace; letter-spacing:.05em; box-shadow:inset 0 1px #ffffff22; }
+.retro-btn:active { transform:translateY(1px); }.retro-btn:hover { background:#69435f; }
+.ride-list { display:grid; gap:7px; }
+.ride { width:100%; text-align:left; border:1px solid #69536f; background:#211a2c; color:#e9d8e8; padding:10px; display:flex; align-items:center; gap:10px; }
+.ride strong { display:block; font:12px Georgia,serif; }.ride small { color:#b9a6bc; font:10px "Courier New",monospace; }
+.ride .glyph { width:34px;height:34px;display:grid;place-items:center;border:1px dashed #b07e9c;color:#edc4d6;font-size:18px;flex:none; }
+.ride.active { background:#49304d; border-color:#d09ab5; box-shadow:inset 0 0 0 1px #d09ab533; }
+.ticket { background:linear-gradient(90deg,#e4c5c7,#c99cae); color:#2b1c31; padding:12px; border:1px dashed #5c3a58; position:relative; text-align:center; }
+.ticket:before,.ticket:after {content:"";position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:#21182d;transform:translateY(-50%)}.ticket:before{left:-8px}.ticket:after{right:-8px}
+.ticket b { display:block; font:20px Georgia,serif; letter-spacing:.12em; }.ticket span { font:9px "Courier New",monospace; letter-spacing:.15em; }
+.guestbook-entry { padding:9px 0; border-bottom:1px dotted #6d5875; font:12px/1.55 Georgia,serif; }.guestbook-entry:last-child{border:0}.guestbook-entry small{display:block;color:#a88da9;font:9px "Courier New",monospace;margin-bottom:4px;}
+input,textarea { width:100%; background:#171321; border:1px solid #735c78; color:#f2e4ee; padding:9px; outline:none; font:11px "Courier New",monospace; margin:5px 0; }
+textarea { min-height:70px; resize:vertical; }
+input:focus,textarea:focus { border-color:#d7a5bf; box-shadow:0 0 0 2px #d7a5bf22; }
+.secret { display:none; padding:12px; margin-top:10px; border:1px dashed #b78ca7; background:#171321; color:#e6c9d8; font:italic 13px/1.7 Georgia,serif; }
+.secret.show { display:block; animation:fade .8s ease; }
+@keyframes fade {from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.footer { text-align:center; padding:22px 8px 32px; color:#9f8ba7; font:9px/1.8 "Courier New",monospace; letter-spacing:.12em; }
+.pixel { display:inline-block; padding:2px 5px; border:1px solid #8c6a89; background:#271c31; color:#e7bdd2; }
+.video-card { background:#15111d; border:1px solid #765b78; padding:8px; }
+.video-poster { min-height:150px; display:grid; place-items:center; text-align:center; position:relative; overflow:hidden; background:radial-gradient(circle at 50% 45%,#d08aaa55,transparent 23%),linear-gradient(135deg,#21172e,#5a3455 50%,#171322); }
+.video-poster:before {content:"";position:absolute;inset:-40%;background:repeating-linear-gradient(115deg,transparent 0 14px,#ffffff0a 15px 16px);animation:film 15s linear infinite;}
+@keyframes film {to{transform:translateX(35px)}}
+.play { position:relative; z-index:1; width:48px;height:48px;border-radius:50%;border:1px solid #f2d8e6;background:#2b1c35bb;color:#fff;font-size:18px; }
+.video-caption { font:10px/1.6 "Courier New",monospace; color:#bca7c1; padding:8px 2px 0; }
+@media(min-width:620px){ .wrap{width:min(100% - 40px,760px)} .grid{grid-template-columns:1.25fr .75fr}.two-col{grid-template-columns:1fr 1fr}.hero-scene{min-height:390px}.ferris{width:250px;height:250px;top:66px} h1{font-size:calc(46px * var(--site-heading-scale))} }
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="site-root">
+  <div class="wrap">
+    <div class="topline"><span>◉ connection: unstable</span><span>visitors: <b id="visitors">00417</b></span><span class="blink">● OPEN TONIGHT</span></div>
+    <header class="masthead">
+      <div class="kicker">WELCOME TO THE PLACE THAT NEVER CLOSED</div>
+      <h1>THE LAST PARADE</h1>
+      <div class="subtitle">a little amusement park for things we couldn't keep</div>
+      <div class="stamp">EST. SOMEWHERE IN THE PAST · 2003</div>
+    </header>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#entrance">Entrance</a><a href="#rides">The rides</a><a href="#arcade">Arcade</a><a href="#guestbook">Guestbook</a><a href="#exit">Exit?</a>
+    </nav>
+    <div class="ticker"><span>✦ PLEASE KEEP YOUR HANDS INSIDE THE MEMORY ✦ THE LIGHTS ARE ON FOR NO PARTICULAR REASON ✦ LAST CALL FOR ONE MORE RIDE ✦ IF YOU SEE SOMEONE YOU KNOW, LET THEM PASS ✦</span></div>
+
+    <main id="entrance" class="grid">
+      <section class="panel">
+        <div class="panel-head"><span>01 / The midway</span><span>NO. 0001</span></div>
+        <div class="hero-scene" role="img" aria-label="A dreamy illustrated Ferris wheel under a pale moon">
+          <div class="moon"></div>
+          <div class="scene-label">LIVE FEED // 11:59 PM</div>
+          <div class="ferris">
+            <i class="spoke"></i><i class="spoke"></i><i class="spoke"></i><i class="spoke"></i><i class="spoke"></i><i class="spoke"></i><i class="spoke"></i>
+            <i class="cabin"></i><i class="cabin"></i><i class="cabin"></i><i class="cabin"></i><i class="hub"></i>
+          </div>
+          <div class="tent one"></div><div class="tent two"></div>
+          <div class="scene-caption">“Somewhere, the music is still playing.”</div>
+        </div>
+        <div class="panel-body">
+          <div class="notice">Dear visitor,<br>We have kept the gates unlocked. The carousel still turns, the bulbs still flicker, and the ticket booth still has your name written somewhere — though nobody remembers who wrote it.</div>
+          <p class="small">This place was built for laughter. It learned how to miss someone instead.</p>
+          <div class="btnrow"><button class="retro-btn" onclick="document.querySelector('#rides').scrollIntoView({behavior:'smooth'})">TAKE A WALK ↓</button><button class="retro-btn" id="ticketBtn">GET A TICKET</button></div>
+          <div id="ticketReveal" class="secret"><div class="ticket"><span>ADMIT ONE / NO RETURN DATE</span><b>FOR THE UNFINISHED</b><span>VALID UNTIL THE LIGHTS GO OUT</span></div><p style="text-align:center;margin:9px 0 0">You don't have to use it.</p></div>
+        </div>
+      </section>
+      <aside class="panel">
+        <div class="panel-head"><span>Bulletin board</span><span>● 3 new</span></div>
+        <div class="panel-body">
+          <p class="small">LATEST ANNOUNCEMENTS</p>
+          <div class="guestbook-entry"><small>10.31.03 — PARK MANAGER</small>The fireworks have been postponed until further notice.</div>
+          <div class="guestbook-entry"><small>10.29.03 — NIGHT STAFF</small>Someone left a song playing in the hall again.</div>
+          <div class="guestbook-entry"><small>10.14.03 — UNKNOWN</small>We saved you the seat beside the window.</div>
+          <p class="small" style="margin-top:12px">MOOD: <span class="pixel">nostalgic.exe</span><br>WEATHER: artificial starlight<br>GATE STATUS: still open</p>
+        </div>
+      </aside>
+    </main>
+
+    <section id="rides" class="panel" style="margin-top:12px">
+      <div class="panel-head"><span>02 / Choose your ride</span><span>PLEASE WAIT</span></div>
+      <div class="panel-body two-col">
+        <div class="ride-list" role="group" aria-label="Choose an attraction">
+          <button class="ride active" data-ride="wheel"><span class="glyph">◉</span><span><strong>The Almost-Home Wheel</strong><small>ONE SLOW TURN / 4 MIN</small></span></button>
+          <button class="ride" data-ride="carousel"><span class="glyph">♧</span><span><strong>The Carousel of Names</strong><small>NO HORSES, ONLY ECHOES</small></span></button>
+          <button class="ride" data-ride="mirror"><span class="glyph">▧</span><span><strong>House of Borrowed Faces</strong><small>LOOK GENTLY</small></span></button>
+          <button class="ride" data-ride="train"><span class="glyph">↝</span><span><strong>The Train That Circles Back</strong><small>DESTINATION: YESTERDAY</small></span></button>
+        </div>
+        <div>
+          <div class="ticket"><span>NOW BOARDING</span><b id="rideName">ALMOST-HOME</b><span id="rideSub">A VIEW THAT NEVER ARRIVES</span></div>
+          <p id="rideText" class="small" style="margin-top:12px">From the highest seat, every lit window looks like a place you almost belonged. The wheel makes one careful turn and brings you back to the same night.</p>
+          <div class="btnrow"><button class="retro-btn" id="rideBtn">RIDE THIS ONE</button></div>
+          <div id="rideMessage" class="secret"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="arcade" class="two-col" style="margin-top:12px">
+      <div class="panel">
+        <div class="panel-head"><span>03 / The little arcade</span><span>INSERT A MEMORY</span></div>
+        <div class="panel-body">
+          <div class="video-card">
+            <div class="video-poster"><div><button class="play" id="filmBtn" aria-label="Play the night film">▶</button><div style="font:10px 'Courier New';letter-spacing:.2em;margin-top:9px">A FOUR-SECOND NIGHT</div></div></div>
+            <div class="video-caption">FOUND FOOTAGE // A FERRIS WHEEL UNDER THE NIGHT SKY<br><a href="https://www.pexels.com/video/vibrant-ferris-wheel-at-night-carnival-29967895/" target="_blank" rel="noopener">VIEW THE FREE PEXELS CLIP ↗</a></div>
+          </div>
+          <p id="filmNote" class="small">The film is silent here. Perhaps it has always been.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><span>04 / Prize counter</span><span>NO REFUNDS</span></div>
+        <div class="panel-body">
+          <p class="small">Pick a little fortune. The machine is old, so it may tell the truth.</p>
+          <div class="btnrow"><button class="retro-btn fortune" data-fortune="You are allowed to remember without returning.">♡ A HEART</button><button class="retro-btn fortune" data-fortune="Some goodbyes keep echoing after the door is shut.">✧ A STAR</button><button class="retro-btn fortune" data-fortune="Not every unfinished thing was meant to be completed.">☾ A MOON</button></div>
+          <div id="fortune" class="secret show">YOUR FORTUNE WILL APPEAR HERE.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="guestbook" class="panel" style="margin-top:12px">
+      <div class="panel-head"><span>05 / Guestbook</span><span>BE KIND TO THE SERVER</span></div>
+      <div class="panel-body two-col">
+        <div>
+          <div class="guestbook-entry"><small>moonlit_guest · 02:14 AM</small>I came for the lights. I stayed because the silence knew my name.</div>
+          <div class="guestbook-entry"><small>paperstars · 11:08 PM</small>Does anyone know when the last train leaves?</div>
+          <div class="guestbook-entry"><small>littleghost · 00:00 AM</small>It never leaves. That's the strange part.</div>
+          <p class="small">These messages are fictional fragments from the park's old guestbook.</p>
+        </div>
+        <form id="noteForm">
+          <label class="small" for="alias">YOUR OLD INTERNET ALIAS</label>
+          <input id="alias" maxlength="24" placeholder="e.g. velvet_static" required>
+          <label class="small" for="note">LEAVE A SMALL NOTE</label>
+          <textarea id="note" maxlength="180" placeholder="Something you never mailed..."></textarea>
+          <button class="retro-btn" type="submit">SIGN THE GUESTBOOK</button>
+          <div id="noteStatus" class="small" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="exit" class="panel" style="margin-top:12px">
+      <div class="panel-head"><span>06 / The exit gate</span><span>YOU CAN STAY A LITTLE</span></div>
+      <div class="panel-body" style="text-align:center">
+        <div style="font:clamp(24px,7vw,42px) Georgia,serif;color:#f1d7e4;line-height:1.2">If you leave now,<br>will the lights remember?</div>
+        <p class="small" style="max-width:430px;margin:12px auto">The park does not ask you to wait forever. It only asks you to notice that you made it through another night.</p>
+        <button class="retro-btn" id="lastDoor">OPEN THE LITTLE DOOR</button>
+        <div id="lastSecret" class="secret">You were here. That is enough for this page to remember.</div>
+      </div>
+    </section>
+    <footer class="footer">THE LAST PARADE © 2003–????<br>HAND-CRAFTED WITH STATIC, STARDUST & OLD HTML FEELINGS<br><span class="pixel">BEST VIEWED AT 2:17 AM</span><br><a href="https://www.pexels.com/license/" target="_blank" rel="noopener">PEXELS LICENSE</a> · <a href="https://unsplash.com/license" target="_blank" rel="noopener">UNSPLASH LICENSE</a></footer>
+  </div>
+</div>
+<script>
+const $ = (s) => document.querySelector(s);
+const visitor = 417 + Math.floor(Math.random()*83);
+$('#visitors').textContent = String(visitor).padStart(5,'0');
+$('#ticketBtn').addEventListener('click',()=>$('#ticketReveal').classList.toggle('show'));
+const rides = {
+ wheel:{name:'ALMOST-HOME',sub:'A VIEW THAT NEVER ARRIVES',text:'From the highest seat, every lit window looks like a place you almost belonged. The wheel makes one careful turn and brings you back to the same night.',msg:'The wheel stopped for a moment. In the quiet, you remembered the sound of being expected.'},
+ carousel:{name:'CAROUSEL OF NAMES',sub:'ROUND AND ROUND, SOFTLY',text:'Every painted horse carries a name on its saddle. Some have faded. Some are too familiar to read twice.',msg:'One empty horse keeps pace with the music. Nobody has claimed it.'},
+ mirror:{name:'BORROWED FACES',sub:'PLEASE DO NOT TOUCH THE GLASS',text:'The mirrors show you in rooms you have never entered, standing beside versions of yourself who learned to say goodbye sooner.',msg:'The mirror does not show a face. It shows a doorway left open.'},
+ train:{name:'YESTERDAY LINE',sub:'NO FINAL STATION',text:'A tiny train circles the park. Its windows glow warmly, but every time it passes, the same seat is empty.',msg:'The conductor tips his hat. He does not ask who you are waiting for.'}
+};
+document.querySelectorAll('.ride').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.ride').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const r=rides[btn.dataset.ride];$('#rideName').textContent=r.name;$('#rideSub').textContent=r.sub;$('#rideText').textContent=r.text;$('#rideMessage').classList.remove('show');$('#rideMessage').textContent=r.msg;}));
+$('#rideBtn').addEventListener('click',()=>$('#rideMessage').classList.toggle('show'));
+document.querySelectorAll('.fortune').forEach(btn=>btn.addEventListener('click',()=>{$('#fortune').textContent=btn.dataset.fortune;$('#fortune').classList.add('show')}));
+$('#filmBtn').addEventListener('click',()=>{$('#filmNote').textContent='The wheel keeps turning, even when nobody is watching. The original free clip opens in a new tab below.';window.open('https://www.pexels.com/video/vibrant-ferris-wheel-at-night-carnival-29967895/','_blank','noopener');});
+$('#noteForm').addEventListener('submit',e=>{e.preventDefault();const name=$('#alias').value.trim();const note=$('#note').value.trim();if(!name||!note){$('#noteStatus').textContent='Please leave both an alias and a little note.';return;}const entry=document.createElement('div');entry.className='guestbook-entry';const meta=document.createElement('small');meta.textContent=name+' · JUST NOW';const body=document.createElement('span');body.textContent=note;entry.append(meta,body);$('#guestbook .two-col > div').prepend(entry);$('#noteStatus').textContent='Your note is pinned here for this visit.';$('#noteForm').reset();});
+$('#lastDoor').addEventListener('click',()=>$('#lastSecret').classList.toggle('show'));
+</script>
+</body>
+</html>
