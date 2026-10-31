@@ -1,613 +1,449 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Little World For You ♡</title>
+<title>Moonberry Garden — A Tiny Adventure</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
 
 :root {
-  --night: #211c2c;
-  --plum: #49364f;
-  --rose: #c98eaa;
-  --pink: #f0c9d7;
-  --cream: #f8eadf;
-  --muted: #c8b2c6;
-  --gold: #e9d1a6;
+  --ink:#352b43;
+  --plum:#65516f;
+  --pink:#efb9ce;
+  --cream:#fff2df;
+  --green:#a9c5a0;
+  --deep:#282536;
+  --gold:#f2d69c;
 }
-
-* { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  background: var(--night);
-  color: var(--cream);
-  font-family: 'Quicksand', sans-serif;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:#211e2d;color:var(--cream);
+  font-family:Nunito,sans-serif;
 }
-
-button { font-family: inherit; cursor: pointer; }
-
-.page {
-  width: min(100%, 520px);
-  min-height: 100vh;
-  margin: auto;
-  padding: 17px;
-  overflow: hidden;
+button{font:inherit;cursor:pointer}
+#game{
+  width:min(100%,520px);min-height:100vh;margin:auto;
+  overflow:hidden;padding:16px;
   background:
-    radial-gradient(circle at 15% 10%, #80557455, transparent 30%),
-    radial-gradient(circle at 90% 55%, #65517b33, transparent 35%),
-    linear-gradient(160deg,#302638,#211c2c 60%,#332432);
+    radial-gradient(circle at 15% 10%,#916d9255,transparent 35%),
+    radial-gradient(circle at 90% 65%,#647b6855,transparent 35%),
+    linear-gradient(160deg,#3d3349,#282536 70%,#343047);
 }
-
-.topline {
-  display: flex;
-  justify-content: space-between;
-  color: var(--muted);
-  font: 10px 'DM Mono', monospace;
-  letter-spacing: 2px;
-  padding: 8px 2px 16px;
-  border-bottom: 1px dashed #9b7b9b66;
+.top{
+  display:flex;justify-content:space-between;
+  font:10px 'DM Mono';letter-spacing:1.5px;
+  color:#d9c4d6;padding:8px 2px;
+  border-bottom:1px dashed #bda2ba66;
 }
-
-header {
-  text-align: center;
-  padding: 50px 8px 35px;
+header{text-align:center;padding:35px 5px 25px}
+.kicker{font:10px 'DM Mono';letter-spacing:3px;color:var(--gold)}
+h1{
+  font:clamp(36px,10vw,52px)/1.05 'Playfair Display',serif;
+  color:#f4c8d8;margin:16px 0 10px;
 }
-
-.tiny {
-  color: var(--gold);
-  font: 10px 'DM Mono', monospace;
-  letter-spacing: 3px;
+.sub{font:italic 15px/1.7 'Playfair Display';color:#ddc9d8}
+.scene{
+  height:270px;position:relative;overflow:hidden;
+  border:1px solid #e7c3d277;border-radius:8px;
+  background:linear-gradient(#837e9c 0%,#b29aaf 53%,#71866f 54%,#354d49 100%);
+  display:grid;place-items:center;
 }
-
-h1 {
-  font: 500 clamp(34px, 10vw, 49px)/1.12 'Playfair Display', serif;
-  margin: 18px 0 12px;
-  color: var(--pink);
+.scene:before{
+  content:"";position:absolute;width:82px;height:82px;
+  border-radius:50%;background:#ffe8c2;top:30px;right:45px;
+  box-shadow:0 0 35px #ffe8c277;
 }
-
-.subtitle {
-  color: var(--muted);
-  font: italic 15px 'Playfair Display', serif;
-  line-height: 1.8;
+.cloud{position:absolute;top:55px;left:22px;font-size:34px;opacity:.65}
+.cat{
+  position:relative;z-index:2;font-size:100px;
+  filter:drop-shadow(0 10px 5px #25223566);
+  animation:bob 2.6s ease-in-out infinite;
 }
-
-.divider {
-  text-align: center;
-  color: var(--rose);
-  letter-spacing: 12px;
-  margin: 25px 0;
+@keyframes bob{50%{transform:translateY(-10px) rotate(3deg)}}
+.grass{
+  position:absolute;bottom:0;left:0;right:0;height:48px;
+  background:linear-gradient(#52725a,#344b43);
 }
-
-.card {
-  border: 1px solid #c18ba655;
-  background: #382b3dce;
-  border-radius: 5px;
-  margin: 18px 0;
-  padding: 18px;
-  box-shadow: 0 10px 35px #120e1c55;
+.scene-label{
+  position:absolute;bottom:12px;z-index:3;
+  font:10px 'DM Mono';letter-spacing:2px;color:#fff3e5;
 }
-
-.card-title {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  color: var(--gold);
-  font: 10px 'DM Mono', monospace;
-  letter-spacing: 1.5px;
-  border-bottom: 1px dashed #a47c9c77;
-  padding-bottom: 12px;
-  margin-bottom: 17px;
+.card{
+  background:#352e40eF;border:1px solid #c99db477;
+  border-radius:7px;padding:17px;margin:16px 0;
+  box-shadow:0 8px 25px #17132166;
 }
-
-.cat-scene {
-  position: relative;
-  min-height: 250px;
-  border-radius: 4px;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  background:
-    radial-gradient(circle at 50% 28%, #f4d8bd 0 3%, transparent 3.5%),
-    linear-gradient(180deg,#83748f,#5d4c6d 65%,#393047);
-  overflow: hidden;
+.cardhead{
+  display:flex;justify-content:space-between;gap:8px;
+  font:10px 'DM Mono';letter-spacing:1px;color:var(--gold);
+  border-bottom:1px dashed #bda2ba66;padding-bottom:12px;margin-bottom:14px;
 }
-
-.stars {
-  position: absolute;
-  inset: 12px;
-  color: #fff0d2;
-  font-size: 13px;
-  letter-spacing: 15px;
-  line-height: 3;
-  opacity: .8;
+p{font-size:14px;line-height:1.8;color:#e6d8e4}
+button{
+  border:1px solid #e9b8ce;background:#614b68;color:#fff0e7;
+  padding:11px 14px;border-radius:5px;font-weight:800;
+  font-size:12px;transition:.2s;
 }
-
-.bigcat {
-  position: relative;
-  z-index: 2;
-  font-size: 105px;
-  filter: drop-shadow(0 12px 7px #24152c88);
-  animation: float 3s ease-in-out infinite;
+button:active{transform:scale(.96)}
+button:hover{background:#806184}
+button:disabled{opacity:.4;cursor:not-allowed}
+.center{text-align:center}
+.muted{font:10px 'DM Mono';color:#cdb9ce;letter-spacing:1px}
+.row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  text-align:center;margin:14px 0;
 }
-
-@keyframes float {
-  50% { transform: translateY(-9px) rotate(-3deg); }
+.stat{
+  background:#211e2d;padding:10px 4px;border-radius:5px;
+  font:10px 'DM Mono';color:#d8c5d7;
 }
-
-.scene-caption {
-  position: absolute;
-  bottom: 15px;
-  font: italic 14px 'Playfair Display',serif;
-  color: white;
+.stat b{display:block;font-size:19px;color:var(--gold);margin-bottom:4px}
+.progress{height:7px;background:#211e2d;border-radius:9px;overflow:hidden;margin:10px 0}
+#bar{height:100%;width:0;background:linear-gradient(90deg,#d68fab,#f3d39e);transition:.4s}
+.gamebox{
+  background:#252232;border:1px solid #8c7190;border-radius:6px;
+  padding:15px;text-align:center;min-height:180px;
 }
-
-p {
-  color: #e1cedc;
-  line-height: 1.9;
-  font-size: 14px;
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.choice button{min-height:65px}
+.plant{
+  font-size:43px;display:block;margin-bottom:5px;
 }
-
-.note {
-  background: #f2e2d9;
-  color: #514052;
-  padding: 20px;
-  border: 1px dashed #ad8298;
-  font: italic 16px/1.9 'Playfair Display',serif;
-  box-shadow: inset 0 0 25px #c99aaa44;
+.plantcard{
+  background:#282536;border:1px solid #8b7892;
+  border-radius:6px;padding:12px;text-align:center;
 }
-
-button {
-  border: 1px solid #d59db7;
-  color: var(--pink);
-  background: #49364f;
-  padding: 12px 16px;
-  font-size: 11px;
-  letter-spacing: 1px;
-  border-radius: 3px;
-  transition: .25s;
+.plantcard small{display:block;color:#d7c1d3;font-size:11px;margin-top:5px}
+#feedback{min-height:45px;color:var(--gold);font:italic 15px 'Playfair Display';padding-top:12px}
+.photo{
+  width:100%;height:180px;object-fit:cover;border-radius:5px;
+  border:1px solid #c99db477;
 }
-
-button:hover {
-  background: #76516f;
-  transform: translateY(-2px);
+.video{
+  width:100%;border-radius:5px;max-height:240px;
+  background:#171321;
 }
-
-.center { text-align: center; }
-
-.hidden { display: none; }
-
-.cat-list {
-  display: grid;
-  gap: 10px;
+.note{
+  background:#f4e4d9;color:#49394d;padding:18px;
+  font:italic 15px/1.9 'Playfair Display';border-radius:4px;
 }
-
-.cat-button {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-align: left;
-  background: #302638;
-  border: 1px solid #99748d66;
-  padding: 13px;
-  color: var(--cream);
-}
-
-.cat-icon { font-size: 34px; }
-
-.cat-button strong {
-  display: block;
-  font-size: 13px;
-  margin-bottom: 5px;
-}
-
-.cat-button small {
-  color: var(--muted);
-  font: 9px 'DM Mono',monospace;
-}
-
-.cat-message {
-  min-height: 125px;
-  padding: 17px;
-  margin-top: 12px;
-  background: #241e2d;
-  border-left: 2px solid var(--rose);
-}
-
-.cat-message h3 {
-  color: var(--gold);
-  font: italic 20px 'Playfair Display',serif;
-  margin: 0 0 10px;
-}
-
-.cat-message p { margin: 0; }
-
-.gift-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 9px;
-}
-
-.gift {
-  min-height: 95px;
-  font-size: 25px;
-  display: grid;
-  place-items: center;
-  background: #49364f;
-}
-
-.gift small {
-  font: 9px 'DM Mono',monospace;
-  color: var(--pink);
-}
-
-#giftMessage {
-  text-align: center;
-  color: var(--gold);
-  font: italic 17px/1.7 'Playfair Display',serif;
-  padding: 18px 8px 5px;
-  min-height: 85px;
-}
-
-.envelope {
-  background: #e8c6d3;
-  color: #4c374c;
-  padding: 25px 18px;
-  text-align: center;
-  border-radius: 3px;
-}
-
-.envelope .seal {
-  font-size: 35px;
-  margin-bottom: 10px;
-}
-
-.envelope p {
-  color: #59445a;
-  font: italic 16px/1.9 'Playfair Display',serif;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 13px;
-  margin: 7px 0 12px;
-  color: var(--cream);
-  background: #211c2c;
-  border: 1px solid #99748d88;
-  font: 13px 'Quicksand',sans-serif;
-  outline: none;
-}
-
-textarea { resize: vertical; min-height: 85px; }
-
-footer {
-  text-align: center;
-  padding: 40px 5px 25px;
-  color: var(--muted);
-  font: 10px/2 'DM Mono',monospace;
-  letter-spacing: 1px;
-}
-
-.paws {
-  color: var(--pink);
-  font-size: 23px;
-  letter-spacing: 9px;
-  margin-bottom: 15px;
-}
-
-#finalMessage {
-  color: var(--pink);
-  font: italic 22px/1.7 'Playfair Display',serif;
-  padding: 20px 5px;
-}
-
+.note p{color:#49394d}
+footer{text-align:center;padding:30px 5px;color:#cbb9cd;font:10px/2 'DM Mono'}
+.hidden{display:none!important}
 </style>
 </head>
 
 <body>
-<div class="page">
+<main id="game">
 
-  <div class="topline">
-    <span>♡ A PRIVATE LITTLE WORLD</span>
-    <span>EST. JUST FOR YOU</span>
+  <div class="top">
+    <span>MOONBERRY GARDEN</span>
+    <span>PLAYER 001 ♡</span>
   </div>
 
   <header>
-    <div class="tiny">A SMALL GIFT FROM SOMEWHERE</div>
-    <h1>A Little World<br>For You</h1>
-    <div class="subtitle">
-      Somewhere between a memory and a dream,<br>
-      I made a little place for you.
-    </div>
-    <div class="divider">✧ · ♡ · ✧</div>
+    <div class="kicker">A TINY WORLD MADE FOR YOU</div>
+    <h1>Moonberry<br>Garden</h1>
+    <div class="sub">A little adventure among cats, strange plants,<br>and things that are difficult to say.</div>
   </header>
 
-  <section class="card">
-    <div class="card-title">
-      <span>01 / THE NIGHT GREETER</span>
-      <span>HELLO, YOU</span>
-    </div>
+  <div class="scene">
+    <div class="cloud">☁️</div>
+    <div class="cat" id="mascot">🐈‍⬛</div>
+    <div class="grass"></div>
+    <div class="scene-label">YOUR GUIDE IS WAITING...</div>
+  </div>
 
-    <div class="cat-scene">
-      <div class="stars">
-        ✦　　·　✧　　·　✦<br>
-        ·　✦　　·　　✧<br>
-        ✧　　·　✦　　·
+  <section class="card">
+    <div class="cardhead"><span>YOUR ADVENTURE</span><span>GAME STATUS</span></div>
+    <div class="stats">
+      <div class="stat"><b id="stars">0</b>STARS</div>
+      <div class="stat"><b id="plants">0</b>PLANTS</div>
+      <div class="stat"><b id="cats">0</b>CAT FRIENDS</div>
+    </div>
+    <div class="progress"><div id="bar"></div></div>
+    <div class="muted center" id="progressText">0 / 4 LITTLE TASKS COMPLETE</div>
+    <p id="intro">Oh! A visitor. I'm Miso. The garden has been waiting for someone curious enough to explore it. Will you help me?</p>
+    <div class="row">
+      <button onclick="startGame()">LET'S EXPLORE!</button>
+      <button onclick="toggleSound()" id="soundBtn">SOUND: ON ♪</button>
+    </div>
+  </section>
+
+  <section class="card" id="mission1">
+    <div class="cardhead"><span>01 / FIND THE CAT</span><span>HIDE & SEEK</span></div>
+    <p>One of these little creatures is hiding in the garden. Can you find Miso?</p>
+    <div class="choice">
+      <button onclick="findCat(0)">🌷<br>Behind the flowers</button>
+      <button onclick="findCat(1)">🍄<br>Under the mushroom</button>
+      <button onclick="findCat(2)">🌳<br>Inside the tree</button>
+      <button onclick="findCat(3)">🌙<br>On the moon</button>
+    </div>
+    <div id="catFeedback" id="feedback"></div>
+  </section>
+
+  <section class="card" id="mission2">
+    <div class="cardhead"><span>02 / THE BOTANIST'S TEST</span><span>PLANT QUIZ</span></div>
+    <p>Some plants are wonderfully strange. Pick the correct answer to help Miso label the collection.</p>
+    <div class="gamebox">
+      <div class="plant" id="plantEmoji">🌿</div>
+      <strong id="plantQuestion">Which plant is famous for trapping insects?</strong>
+      <div class="choice" id="plantChoices">
+        <button onclick="answerPlant(0)">Venus flytrap</button>
+        <button onclick="answerPlant(1)">Lavender</button>
+        <button onclick="answerPlant(2)">Rosemary</button>
+        <button onclick="answerPlant(3)">Sunflower</button>
       </div>
-      <div class="bigcat">🐈‍⬛</div>
-      <div class="scene-caption">
-        "I've been keeping the moon company."
+      <div id="plantFeedback" id="feedback"></div>
+      <button onclick="nextPlant()" id="nextPlant" class="hidden">NEXT QUESTION →</button>
+    </div>
+  </section>
+
+  <section class="card" id="mission3">
+    <div class="cardhead"><span>03 / THE LOST STARS</span><span>MEMORY GAME</span></div>
+    <p>Remember the order of these little symbols, then repeat it.</p>
+    <div class="gamebox">
+      <div style="font-size:31px;letter-spacing:8px" id="sequence">✿　☾　✦</div>
+      <button onclick="showSequence()">SHOW ME</button>
+      <div class="choice">
+        <button onclick="memoryAnswer(0)">✿ ☾ ✦</button>
+        <button onclick="memoryAnswer(1)">☾ ✿ ✦</button>
+        <button onclick="memoryAnswer(2)">✦ ☾ ✿</button>
+        <button onclick="memoryAnswer(3)">✿ ✦ ☾</button>
+      </div>
+      <div id="memoryFeedback" id="feedback"></div>
+    </div>
+  </section>
+
+  <section class="card" id="mission4">
+    <div class="cardhead"><span>04 / THE GARDEN COLLECTION</span><span>RARE PLANTS</span></div>
+    <p>Three unusual plants have been found. Tap each one to discover its little botanical fact.</p>
+    <div class="choice">
+      <button onclick="plantFact(0)"><span class="plant">🌺</span>Corpse flower</button>
+      <button onclick="plantFact(1)"><span class="plant">🌱</span>Living stones</button>
+      <button onclick="plantFact(2)"><span class="plant">🌿</span>Pitcher plant</button>
+      <button onclick="plantFact(3)"><span class="plant">🌸</span>Night-blooming cereus</button>
+    </div>
+    <div id="fact" class="note" style="margin-top:12px">A little field guide is waiting for you.</div>
+  </section>
+
+  <section class="card">
+    <div class="cardhead"><span>05 / A POSTCARD FROM THE GARDEN</span><span>LOOK CLOSELY</span></div>
+    <img class="photo" alt="A dreamy botanical garden" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&q=85">
+    <p class="muted">A quiet place, somewhere in the world.</p>
+    <div class="note">
+      Perhaps the loveliest things are not always easy to find.
+      Some grow slowly, some bloom only at night,
+      and some need a little patience before they show
+      what they have been carrying all along.
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="cardhead"><span>06 / A LITTLE MOVING PICTURE</span><span>GARDEN FILM</span></div>
+    <video class="video" controls playsinline preload="none"
+      poster="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=900&q=85">
+      <source src="https://videos.pexels.com/video-files/3129671/3129671-hd_1920_1080_25fps.mp4" type="video/mp4">
+      Your browser does not support this video.
+    </video>
+    <p class="muted">A little pause between adventures.</p>
+  </section>
+
+  <section class="card">
+    <div class="cardhead"><span>07 / THE SECRET LETTER</span><span>UNLOCKED AT THE END</span></div>
+    <div class="center">
+      <div style="font-size:55px">💌</div>
+      <p>Finish the little adventures to open the envelope.</p>
+      <button onclick="openEnding()" id="endingBtn">CHECK THE ENVELOPE</button>
+    </div>
+    <div id="ending" class="hidden">
+      <div class="note">
+        I made this little garden because sometimes
+        ordinary messages feel too small for what
+        we want to say.
+        <br><br>
+        There are strange plants that bloom in the dark,
+        tiny creatures that keep us company,
+        and memories that stay with us in unexpected ways.
+        <br><br>
+        I hope you find beautiful things wherever you go.
+        And when life feels a little too heavy,
+        I hope you remember to leave room for wonder.
+        <br><br>
+        This small world is yours. ♡
       </div>
     </div>
-
-    <p>
-      Hello, little visitor. You have arrived at a place
-      where nobody is in a hurry, the cats are in charge,
-      and the door is always unlocked.
-    </p>
-
-    <div class="center">
-      <button onclick="document.getElementById('cats').scrollIntoView()">
-        MEET THE RESIDENTS ↓
-      </button>
-    </div>
-  </section>
-
-  <div class="divider">· · · ♡ · · ·</div>
-
-  <section class="card" id="cats">
-    <div class="card-title">
-      <span>02 / THE CAT DEPARTMENT</span>
-      <span>4 RESIDENTS</span>
-    </div>
-
-    <p>
-      They each have something they want you to know.
-      Choose one.
-    </p>
-
-    <div class="cat-list">
-
-      <button class="cat-button" onclick="showCat(0)">
-        <span class="cat-icon">🐈</span>
-        <span>
-          <strong>Button</strong>
-          <small>THE PROFESSIONAL NAPPER</small>
-        </span>
-      </button>
-
-      <button class="cat-button" onclick="showCat(1)">
-        <span class="cat-icon">🐈‍⬛</span>
-        <span>
-          <strong>Velvet</strong>
-          <small>THE MIDNIGHT THINKER</small>
-        </span>
-      </button>
-
-      <button class="cat-button" onclick="showCat(2)">
-        <span class="cat-icon">🐈</span>
-        <span>
-          <strong>Peach</strong>
-          <small>THE LITTLE SUNSHINE</small>
-        </span>
-      </button>
-
-      <button class="cat-button" onclick="showCat(3)">
-        <span class="cat-icon">🐾</span>
-        <span>
-          <strong>The Tiny Guardian</strong>
-          <small>THE ONE WHO WAITS</small>
-        </span>
-      </button>
-
-    </div>
-
-    <div class="cat-message" id="catMessage">
-      <h3>Button says...</h3>
-      <p>
-        You don't have to explain why you're quiet.
-        Sometimes sitting beside someone is enough.
-      </p>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="card-title">
-      <span>03 / A LITTLE PARCEL</span>
-      <span>CHOOSE ONE</span>
-    </div>
-
-    <p>
-      Three tiny gifts. No instructions. Just open one.
-    </p>
-
-    <div class="gift-grid">
-      <button class="gift" onclick="openGift(0)">
-        ♡<small>HEART</small>
-      </button>
-      <button class="gift" onclick="openGift(1)">
-        ✧<small>STAR</small>
-      </button>
-      <button class="gift" onclick="openGift(2)">
-        ☾<small>MOON</small>
-      </button>
-    </div>
-
-    <div id="giftMessage">
-      Your little gift is waiting here.
-    </div>
-  </section>
-
-  <div class="divider">✧ · · ♡ · · ✧</div>
-
-  <section class="card">
-    <div class="card-title">
-      <span>04 / A LETTER FOR YOU</span>
-      <span>SEALED WITH CARE</span>
-    </div>
-
-    <div class="center" id="closedLetter">
-      <div style="font-size:65px">💌</div>
-      <p>
-        There is something I wanted to say,<br>
-        but I didn't know where to begin.
-      </p>
-      <button onclick="openLetter()">OPEN THE LETTER</button>
-    </div>
-
-    <div class="envelope hidden" id="openLetter">
-      <div class="seal">♡</div>
-      <p>
-        I wish I could gather all the little things
-        that make a person feel less alone,
-        and leave them at your doorstep.
-        <br><br>
-        I wish I could keep every beautiful moment
-        from becoming a memory too soon.
-        <br><br>
-        There is a particular kind of sadness
-        in caring about something you cannot
-        always reach.
-        <br><br>
-        But even so, I am glad that this world
-        has crossed paths with yours.
-        <br><br>
-        If nothing else, I hope this little corner
-        reminds you that you are worth
-        the time, the thought, and the tenderness.
-        <br><br>
-        With all the words I couldn't quite say. ♡
-      </p>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="card-title">
-      <span>05 / THE LITTLE MAILBOX</span>
-      <span>YOUR TURN</span>
-    </div>
-
-    <p>
-      Leave a little mark here. This message will appear
-      on this page while it remains open.
-    </p>
-
-    <input id="nickname" placeholder="Your little nickname...">
-    <textarea id="message" placeholder="Write something, anything..."></textarea>
-
-    <div class="center">
-      <button onclick="sendNote()">SEND A LITTLE NOTE ♡</button>
-    </div>
-
-    <div id="noteResult"></div>
-  </section>
-
-  <section class="card center">
-    <div class="card-title">
-      <span>06 / BEFORE YOU GO</span>
-      <span>ONE LAST THING</span>
-    </div>
-
-    <div style="font-size:55px">🌙</div>
-
-    <div id="finalMessage">
-      Some things are too important<br>
-      to be said casually.
-    </div>
-
-    <button onclick="revealFinal()">ONE LAST SECRET</button>
   </section>
 
   <footer>
-    <div class="paws">🐾 ♡ 🐾</div>
-    MADE WITH CARE, JUST FOR YOU<br>
-    A LITTLE WORLD THAT WILL ALWAYS HAVE A LIGHT ON<br>
-    <span style="color:#e9d1a6">THANK YOU FOR VISITING.</span>
+    🐾 MADE WITH CARE & A LITTLE MAGIC 🐾<br>
+    MOONBERRY GARDEN · A PRIVATE LITTLE UNIVERSE
   </footer>
 
-</div>
+</main>
 
 <script>
-const cats = [
-  {
-    name: "Button says...",
-    message: "You don't have to explain why you're quiet. Sometimes sitting beside someone is enough. I think silence can be a lovely place, too."
-  },
-  {
-    name: "Velvet says...",
-    message: "Some nights bring back things we thought we had put away. It doesn't mean we haven't moved forward. It only means some memories have a way of finding us."
-  },
-  {
-    name: "Peach says...",
-    message: "Please remember to be gentle with yourself. You deserve kindness on ordinary days, not only on the days when everything goes wrong."
-  },
-  {
-    name: "The Tiny Guardian says...",
-    message: "I cannot promise that every road will be easy. But I hope you always find a little warmth somewhere along the way."
+let soundOn = true;
+let score = 0;
+let completed = new Set();
+let audioCtx;
+
+function sound(type="tap") {
+  if (!soundOn) return;
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    const now = audioCtx.currentTime;
+    const notes = type === "success" ? [523,659,784] :
+                  type === "wrong" ? [220,185] :
+                  type === "magic" ? [660,880,1046] : [440];
+    notes.forEach((freq,i)=>{
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = "sine";
+      o.frequency.setValueAtTime(freq,now+i*.11);
+      g.gain.setValueAtTime(.0001,now+i*.11);
+      g.gain.exponentialRampToValueAtTime(.12,now+i*.11+.02);
+      g.gain.exponentialRampToValueAtTime(.0001,now+i*.11+.25);
+      o.connect(g);g.connect(audioCtx.destination);
+      o.start(now+i*.11);o.stop(now+i*.11+.27);
+    });
+  } catch(e) {}
+}
+
+function toggleSound() {
+  soundOn = !soundOn;
+  document.getElementById("soundBtn").textContent =
+    soundOn ? "SOUND: ON ♪" : "SOUND: OFF";
+  if(soundOn) sound("magic");
+}
+
+function startGame() {
+  sound("magic");
+  document.getElementById("intro").textContent =
+    "The garden gates are open! Complete the four little tasks and collect your stars.";
+  document.getElementById("mission1").scrollIntoView({behavior:"smooth"});
+}
+
+function complete(id) {
+  if(completed.has(id)) return;
+  completed.add(id);
+  score += 1;
+  document.getElementById("stars").textContent = score;
+  document.getElementById("bar").style.width = (score/4*100)+"%";
+  document.getElementById("progressText").textContent =
+    score+" / 4 LITTLE TASKS COMPLETE";
+  if(score===4) {
+    document.getElementById("mascot").textContent = "😺";
+    sound("magic");
   }
+}
+
+function findCat(n) {
+  const f = document.getElementById("catFeedback");
+  if(n===1) {
+    f.textContent = "You found Miso! A tiny purr of approval. +1 star!";
+    complete("cat");
+    document.getElementById("cats").textContent = "1";
+    sound("success");
+  } else {
+    f.textContent = "Not here! Listen... there's a tiny meow nearby.";
+    sound("wrong");
+  }
+}
+
+const questions = [
+  {emoji:"🌿",q:"Which plant is famous for trapping insects?",a:["Venus flytrap","Lavender","Rosemary","Sunflower"],correct:0,explain:"Correct! Its leaves snap shut when tiny trigger hairs are touched."},
+  {emoji:"🪨",q:"Which plant looks like a pair of little stones?",a:["Orchid","Lithops","Fern","Ivy"],correct:1,explain:"Lithops are called living stones. Their shape helps them blend into rocky ground."},
+  {emoji:"🌸",q:"Which flower is famous for blooming at night?",a:["Tulip","Daisy","Night-blooming cereus","Poppy"],correct:2,explain:"The night-blooming cereus opens its beautiful flowers after sunset."}
 ];
+let qIndex=0, answered=false;
 
-function showCat(index) {
-  document.getElementById("catMessage").innerHTML =
-    "<h3>" + cats[index].name + "</h3><p>" +
-    cats[index].message + "</p>";
+function renderPlant() {
+  const q=questions[qIndex];
+  document.getElementById("plantEmoji").textContent=q.emoji;
+  document.getElementById("plantQuestion").textContent=q.q;
+  document.getElementById("plantChoices").innerHTML=q.a.map((a,i)=>
+    `<button onclick="answerPlant(${i})">${a}</button>`).join("");
+  document.getElementById("plantFeedback").textContent="";
+  document.getElementById("nextPlant").classList.add("hidden");
+  answered=false;
 }
 
-const gifts = [
-  "You have left traces of goodness in places you may never see again.",
-  "Even the quietest stars are still part of the sky.",
-  "Some feelings remain precious, even when they cannot remain close."
+function answerPlant(i) {
+  if(answered)return;
+  answered=true;
+  const q=questions[qIndex];
+  const f=document.getElementById("plantFeedback");
+  if(i===q.correct) {
+    f.textContent=q.explain;
+    sound("success");
+    if(qIndex===questions.length-1) {
+      complete("quiz");
+      document.getElementById("plants").textContent="3";
+    }
+  } else {
+    f.textContent="Not quite! Try another little discovery.";
+    sound("wrong");
+    answered=false;
+  }
+  if(answered)document.getElementById("nextPlant").classList.remove("hidden");
+}
+
+function nextPlant() {
+  qIndex=(qIndex+1)%questions.length;
+  renderPlant();
+  sound("tap");
+}
+
+const sequence=["✿","☾","✦"];
+function showSequence() {
+  document.getElementById("sequence").textContent=sequence.join("　");
+  sound("magic");
+}
+function memoryAnswer(n) {
+  const correct=[0,1,2,3].indexOf(0);
+  const f=document.getElementById("memoryFeedback");
+  if(n===0) {
+    f.textContent="Perfect memory! The stars are yours. +1 star!";
+    complete("memory");
+    sound("success");
+  } else {
+    f.textContent="Almost! Look at the pattern once more.";
+    sound("wrong");
+  }
+}
+
+const facts=[
+  "The corpse flower can produce a powerful smell that resembles rotting organic matter. It blooms very rarely.",
+  "Lithops are tiny succulents that resemble stones. They grow close to the ground in dry regions.",
+  "Pitcher plants have modified leaves that form deep cups. Some species catch insects inside them.",
+  "The night-blooming cereus opens its flowers after dark. Some blooms last only one night."
 ];
-
-function openGift(index) {
-  document.getElementById("giftMessage").textContent = gifts[index];
+function plantFact(n) {
+  document.getElementById("fact").textContent=facts[n];
+  sound("tap");
 }
 
-function openLetter() {
-  document.getElementById("closedLetter").classList.add("hidden");
-  document.getElementById("openLetter").classList.remove("hidden");
-}
-
-function sendNote() {
-  const name = document.getElementById("nickname").value.trim();
-  const message = document.getElementById("message").value.trim();
-
-  if (!name || !message) {
-    document.getElementById("noteResult").textContent =
-      "Please write a name and a little message first.";
+function openEnding() {
+  if(completed.size<4) {
+    document.getElementById("endingBtn").textContent=
+      "NOT YET — FINISH THE LITTLE TASKS";
+    sound("wrong");
     return;
   }
-
-  const entry = document.createElement("div");
-  entry.className = "note";
-  const title = document.createElement("strong");
-  title.textContent = name;
-  const body = document.createElement("p");
-  body.style.color = "#514052";
-  body.textContent = message;
-  entry.append(title, body);
-
-  const result = document.getElementById("noteResult");
-  result.replaceChildren(entry);
-
-  document.getElementById("nickname").value = "";
-  document.getElementById("message").value = "";
-}
-
-function revealFinal() {
-  document.getElementById("finalMessage").innerHTML =
-    "And if the world ever feels too large,<br>" +
-    "I hope you remember that somewhere,<br>" +
-    "someone took the time to make<br>" +
-    "a little world just for you. ♡";
+  document.getElementById("ending").classList.remove("hidden");
+  document.getElementById("endingBtn").textContent="THE LETTER IS OPEN ♡";
+  sound("magic");
 }
 </script>
-
 </body>
 </html>
